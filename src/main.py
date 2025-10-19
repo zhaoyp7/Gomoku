@@ -3,12 +3,13 @@ from core.constants import *
 from core.board import Board
 from core.game import Game
 from ai.random import RandomAI
+from ai.minimax import MinimaxAI
 
 def main() :
     print(BOARD_SIZE)
     # return 
     game = Game()
-    ai = RandomAI()
+    ai = MinimaxAI()
     while game.game_state == PLAYING : 
         if game.board.current_player == BLACK :
             print("请输入落子位置")
