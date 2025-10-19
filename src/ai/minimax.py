@@ -5,9 +5,23 @@ from core.constants import *
 # 实现一个基于 Minimax 算法的 AI
 empty_move = [-1, -1]
 
+def debug(board) :
+    """打印棋盘状态"""
+    symbols = {BLACK: '●', WHITE: '○', EMPTY: '·'}
+    print("  ", end="")
+    for col in range(BOARD_SIZE):
+        print(f"{col:2d}", end="")
+    print()
+    for row in range(BOARD_SIZE):
+        print(f"{row:2d} ", end="")
+        for col in range(BOARD_SIZE):
+            print(symbols[board.board[row][col]], end=" ")
+        print()
+
 class MinimaxAI :
     def Minimax(self, limit_depth, player, board, lastrow, lastcol) : 
-        # print(limit_depth,player,lastrow,lastrow)
+        # debug(board)
+        # print(limit_depth,player,lastrow,lastcol)
         if lastrow != -1 and board.check_win(lastrow, lastcol) :
             if player == 2 :
                 return -1000000000, empty_move
@@ -43,6 +57,7 @@ class MinimaxAI :
             else :
                 new_board.current_player = 2
             new_board.place_stone(pos[0], pos[1])
+            # print(limit_depth - 1, 3 - player, pos[0], pos[1])
             val, tmp = self.Minimax(limit_depth - 1, 3 - player, new_board, pos[0], pos[1])
             # print(val,tmp[0],tmp[1],res)
             if player == 2 and val > res:
@@ -54,5 +69,5 @@ class MinimaxAI :
         return res,move
 
     def GetMove(self, board) :
-        val, move = self.Minimax(1, 2, board, -1, -1)
+        val, move = self.Minimax(2, 2, board, -1, -1)
         return move

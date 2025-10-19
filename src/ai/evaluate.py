@@ -3,7 +3,7 @@ from core.constants import *
 
 def WithInBoard(row, col) :
     return (0 <= row < BOARD_SIZE and 0 <= col < BOARD_SIZE)
-# 一个非常弱的估价函数的例子
+# 一个比较弱的估价函数的例子
 def evaluate(board) :
     directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
     res = 0
