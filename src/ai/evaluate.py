@@ -23,8 +23,14 @@ def evaluate(board) :
                     r += dr
                     c += dc
                 if tmp == WHITE : 
-                    fl = 1
+                    fl = 10
                 else : 
-                    fl = -1
-                res += fl * pow(10,cnt)
+                    fl = -21
+                op = 0
+                if WithInBoard(i - dr,j - dc) and board.board[i - dr][j - dc] == EMPTY :
+                    op += 1
+                if WithInBoard(r,c) and board.board[r][c] == EMPTY :
+                    op += 1
+                res += fl * op * pow(10,cnt)
+    
     return res
