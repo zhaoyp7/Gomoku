@@ -9,9 +9,12 @@ class MinimaxAI :
     def Minimax(self, limit_depth, player, board, lastrow, lastcol) : 
         # print(limit_depth,player,lastrow,lastrow)
         if lastrow != -1 and board.check_win(lastrow, lastcol) :
-            return evaluate(board, player), empty_move
+            if player == 2 :
+                return -1000000000, empty_move
+            else : 
+                return 1000000000, empty_move
         if limit_depth == 0 :
-            return evaluate(board, player), empty_move
+            return evaluate(board), empty_move
         list = []
         for i in range(0,board.size) :
             for j in range(0,board.size) :

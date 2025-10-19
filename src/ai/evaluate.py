@@ -1,4 +1,30 @@
 # 需要实现对当前状态的估价
+from core.constants import *
 
-def evaluate(board, player) :
-    return 0
+def WithInBoard(row, col) :
+    return (0 <= row < BOARD_SIZE and 0 <= col < BOARD_SIZE)
+# 一个非常弱的估价函数的例子
+def evaluate(board) :
+    directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
+    res = 0
+    for dr, dc in directions:
+        for i in range(BOARD_SIZE) : 
+            for j in range(BOARD_SIZE) :
+                tmp = board.board[i][j]
+                if tmp == EMPTY :
+                    continue
+                if WithInBoard(i - dr, j - dc) and tmp == board.board[i - dr][j - dc] :
+                    continue
+                cnt = 0
+                r = i
+                c = j
+                while WithInBoard(r,c) and board.board[r][c] == tmp :
+                    cnt += 1
+                    r += dr
+                    c += dc
+                if tmp == WHITE : 
+                    fl = 1
+                else : 
+                    fl = -1
+                res += fl * pow(10,cnt)
+    return res
