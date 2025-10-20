@@ -35,10 +35,6 @@ class MinimaxAI :
                 if board.check_valid_move(i, j) : 
                     list.append([i,j])
         move = -1, -1
-        if player == 2 :
-            res = -INF
-        else :
-            res = INF
         for pos in list :
             new_board = Board()
             for i in range(BOARD_SIZE) :
