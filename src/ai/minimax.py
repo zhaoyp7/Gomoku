@@ -19,14 +19,14 @@ def debug(board) :
         print()
 
 class MinimaxAI :
-    def Minimax(self, limit_depth, player, board, lastrow, lastcol) : 
+    def minimax(self, limit_depth, player, board, lastrow, lastcol, alpha, beta) : 
         # debug(board)
         # print(limit_depth,player,lastrow,lastcol)
         if lastrow != -1 and board.check_win(lastrow, lastcol) :
             if player == 2 :
-                return -1000000000, empty_move
+                return -INF, empty_move
             else : 
-                return 1000000000, empty_move
+                return INF, empty_move
         if limit_depth == 0 :
             return evaluate(board), empty_move
         list = []
@@ -36,13 +36,10 @@ class MinimaxAI :
                     list.append([i,j])
         move = -1, -1
         if player == 2 :
-            res = -1000000000
+            res = -INF
         else :
-            res = 1000000000
-        # print(list)
+            res = INF
         for pos in list :
-            # print(board.current_player)
-            # print(pos)
             new_board = Board()
             for i in range(BOARD_SIZE) :
                 for j in range(BOARD_SIZE) : 
@@ -57,17 +54,25 @@ class MinimaxAI :
             else :
                 new_board.current_player = 2
             new_board.place_stone(pos[0], pos[1])
-            # print(limit_depth - 1, 3 - player, pos[0], pos[1])
-            val, tmp = self.Minimax(limit_depth - 1, 3 - player, new_board, pos[0], pos[1])
-            # print(val,tmp[0],tmp[1],res)
-            if player == 2 and val > res:
-                res = val
+            if player == 2 :
+               val, tmp = self.minimax(limit_depth - 1, 3 - player, new_board, pos[0], pos[1], alpha, INF)
+            else :
+                val, tmp = self.minimax(limit_depth - 1, 3 - player, new_board, pos[0], pos[1], -INF, beta)
+            if player == 2 and val >= alpha:
+                alpha = val
                 move = pos
-            elif player == 1 and val < res :
-                res = val
+            elif player == 1 and val <= beta :
+                beta = val
                 move = pos
-        return res,move
+            if player == 2 and alpha >= beta :
+                return alpha, move
+            elif player == 1 and beta <= alpha :
+                return beta, move
+        if player == 1 :
+            return beta, move
+        else :
+            return alpha, move
 
-    def GetMove(self, board) :
-        val, move = self.Minimax(2, 2, board, -1, -1)
+    def get_move(self, board) :
+        val, move = self.minimax(2, 2, board, -1, -1, -INF, INF)
         return move

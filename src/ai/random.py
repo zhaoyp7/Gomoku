@@ -2,7 +2,7 @@ import random
 # from ..core.constants import *
 
 class RandomAI : 
-    def GetMove(self, board) :
+    def get_move(self, board) :
         list = []
         for i in range(0,board.size) :
             for j in range(0,board.size) :

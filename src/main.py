@@ -19,7 +19,7 @@ def main() :
                 row, col = map(int,input().split())
             game.make_move(row, col)
         else :
-            pos = ai.GetMove(game.board)
+            pos = ai.get_move(game.board)
             game.make_move(pos[0], pos[1])
 
 if __name__ == "__main__":
