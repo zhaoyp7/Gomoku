@@ -66,3 +66,11 @@ class Board:
     def check_full(self):
         """检查棋盘是否已满"""
         return np.all(self.board != EMPTY)
+
+    def get_valid_pos(self) :
+        list = []
+        for i in range(0,BOARD_SIZE) :
+            for j in range(0,BOARD_SIZE) :
+                if self.check_valid_move(i, j) : 
+                    list.append([i,j])
+        return list
