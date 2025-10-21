@@ -31,6 +31,7 @@ class MinimaxAI :
         list = board.get_valid_pos()
         move = -1, -1
         for pr, pc in list :
+            # print(limit_depth,lastcol,lastrow,alpha,beta)
             new_board = copy.deepcopy(board)
             new_board.place_stone(pr, pc)
             if player == WHITE :
@@ -53,5 +54,5 @@ class MinimaxAI :
             return alpha, move
 
     def get_move(self, board) :
-        val, move = self.minimax(2, 2, board, -1, -1, -INF, INF)
+        val, move = self.minimax(3, 2, board, -1, -1, -INF, INF)
         return move
