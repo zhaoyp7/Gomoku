@@ -62,9 +62,6 @@ class Game:
 
     def make_move(self, row, col):
         """落子。"""
-        # if not(self.board.check_valid_move(row, col)):
-        #     print("落子无效，请重新落子：")
-        #     return False
         self.board.place_stone(row, col)
         self.print_board()
         if self.board.check_win(row, col) : 
@@ -72,4 +69,3 @@ class Game:
         elif self.board.check_full() :
             self.game_state = DRAW
         self.print_result()
-        # return True

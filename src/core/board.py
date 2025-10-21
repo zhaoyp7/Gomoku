@@ -13,6 +13,8 @@
 import numpy as np
 from .constants import *
 
+def within_board(row, col) :
+    return (0 <= row < BOARD_SIZE and 0 <= col < BOARD_SIZE)
 
 class Board:
     def __init__(self):
@@ -46,14 +48,14 @@ class Board:
 
             # 正向检查
             r, c = row + dr, col + dc
-            while 0 <= r < BOARD_SIZE and 0 <= c < BOARD_SIZE and self.board[r][c] == player:
+            while within_board(r,c) and self.board[r][c] == player:
                 count += 1
                 r += dr
                 c += dc
 
             # 反向检查
             r, c = row - dr, col - dc
-            while 0 <= r < BOARD_SIZE and 0 <= c < BOARD_SIZE and self.board[r][c] == player:
+            while within_board(r,c) and self.board[r][c] == player:
                 count += 1
                 r -= dr
                 c -= dc

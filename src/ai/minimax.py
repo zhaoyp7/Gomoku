@@ -22,7 +22,7 @@ def debug(board) :
 class MinimaxAI :
     def minimax(self, limit_depth, player, board, lastrow, lastcol, alpha, beta) : 
         if lastrow != -1 and board.check_win(lastrow, lastcol) :
-            if player == 2 :
+            if player == WHITE :
                 return -INF, empty_move
             else : 
                 return INF, empty_move
@@ -33,21 +33,21 @@ class MinimaxAI :
         for pr, pc in list :
             new_board = copy.deepcopy(board)
             new_board.place_stone(pr, pc)
-            if player == 2 :
+            if player == WHITE :
                val, tmp = self.minimax(limit_depth - 1, 3 - player, new_board, pr, pc, alpha, INF)
             else :
                 val, tmp = self.minimax(limit_depth - 1, 3 - player, new_board, pr, pc, -INF, beta)
-            if player == 2 and val >= alpha:
+            if player == WHITE and val >= alpha:
                 alpha = val
                 move = pr, pc
-            elif player == 1 and val <= beta :
+            elif player == BLACK and val <= beta :
                 beta = val
                 move = pr, pc
-            if player == 2 and alpha >= beta :
+            if player == WHITE and alpha >= beta :
                 return alpha, move
-            elif player == 1 and beta <= alpha :
+            elif player == BLACK and beta <= alpha :
                 return beta, move
-        if player == 1 :
+        if player == BLACK :
             return beta, move
         else :
             return alpha, move
