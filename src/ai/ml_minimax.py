@@ -1,6 +1,6 @@
 import random
 import copy
-from .evaluate import *
+from .ml_evaluate import *
 from core.board import Board
 from core.constants import *
 # 实现一个基于 Minimax 算法的 AI
@@ -19,7 +19,7 @@ def debug(board) :
             print(symbols[board.board[row][col]], end=" ")
         print()
 
-class MinimaxAI :
+class ML_MinimaxAI :
     def minimax(self, limit_depth, player, board, lastrow, lastcol, alpha, beta) : 
         if lastrow != -1 and board.check_win(lastrow, lastcol) :
             if player == WHITE :
@@ -53,5 +53,6 @@ class MinimaxAI :
             return alpha, move
 
     def get_move(self, board, color) :
-        val, move = self.minimax(2, color, board, -1, -1, -INF, INF)
+        val, move = self.minimax(4, color, board, -1, -1, -INF, INF)
+        print(move)
         return move

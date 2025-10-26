@@ -4,6 +4,20 @@ from core.constants import *
 def within_board(row, col):
     return (0 <= row < BOARD_SIZE and 0 <= col < BOARD_SIZE)
 
+def debug(board):
+    """打印棋盘状态"""
+    symbols = {BLACK: '●', WHITE: '○', EMPTY: '·'}
+    print("  ", end="")
+    for col in range(BOARD_SIZE):
+        print(f"{col:2d}", end="")
+    print()
+    for row in range(BOARD_SIZE):
+        print(f"{row:2d} ", end="")
+        for col in range(BOARD_SIZE):
+            print(symbols[board.board[row][col]], end=" ")
+        print()
+    print("features",board.features)
+
 
 def evaluate(board):
 
@@ -33,7 +47,8 @@ def evaluate(board):
                 # 评估这个方向的连续和间隔棋型
                 direction_score = evaluate_direction(board, i, j, dr, dc, color)
                 score += direction_score if color == WHITE else -direction_score
-
+    # debug(board)
+    # print("score = ",score)
     return score
 
 
@@ -91,8 +106,8 @@ def evaluate_gap_patterns(board, row, col, dr, dc, color):
     # 检查三子和四子的间隔模式
     gap_patterns = [
         # 三子间隔模式 (跳三)
-        [[0, 1, 3], 800],  # ○_○_○ 活跳三
-        [[0, 2, 3], 800],  # ○_○_○ 另一种跳三
+        [[0, 1, 3], 800],  # ○_○○ 活跳三
+        [[0, 2, 3], 800],  # ○○_○ 另一种跳三
 
         # 四子间隔模式 (跳四)
         [[0, 1, 2, 4], 5000],  # ○_○○○ 跳四
