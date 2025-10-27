@@ -10,9 +10,9 @@ from core.board import Board
 from core.constants import *
 from core.game import Game
 from ai.random import RandomAI
-from ai.minimax import MinimaxAI
-from ai.weak_minimax import weak_MinimaxAI
-from ai.weak_evaluate import *
+from ai.minimax2 import MinimaxAI
+from ai.minimax1 import weak_MinimaxAI
+from ai.evaluate1 import *
 
 def main() :
     # print(BOARD_SIZE)

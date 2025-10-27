@@ -1,6 +1,6 @@
 import random
 import copy
-from .weak_evaluate import *
+from .evaluate2 import *
 from core.board import Board
 from core.constants import *
 # 实现一个基于 Minimax 算法的 AI
@@ -19,7 +19,7 @@ def debug(board) :
             print(symbols[board.board[row][col]], end=" ")
         print()
 
-class weak_MinimaxAI :
+class MinimaxAI2 :
     def minimax(self, limit_depth, player, board, lastrow, lastcol, alpha, beta) : 
         if lastrow != -1 and board.check_win(lastrow, lastcol) :
             if player == WHITE :

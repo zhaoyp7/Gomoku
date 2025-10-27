@@ -45,7 +45,7 @@ class Game:
             for col in range(BOARD_SIZE):
                 print(symbols[self.board.board[row][col]], end=" ")
             print()
-        # print("features",self.board.features)
+        print("features",self.board.features)
 
     def print_result(self):
         """打印游戏结果"""
