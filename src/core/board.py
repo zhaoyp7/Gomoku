@@ -23,7 +23,8 @@ class Board:
         self.current_player = BLACK
         self.game_state = PLAYING
         self.features = np.zeros(12, dtype=int)
-        # 眠二 活二 眠三 活三 冲四 活四(and 跳四)
+        # 眠二 活二 眠三 活三(and _oo_o) 冲四(and 跳四) 活四
+        # upd: 放弃记录 _oo_o and 跳四
 
     def check_valid_move(self, row, col) :
         if not (0 <= row < BOARD_SIZE and 0 <= col < BOARD_SIZE):
@@ -74,6 +75,32 @@ class Board:
         return np.all(self.board != EMPTY)
 
     def get_valid_pos(self) :
+        mid = BOARD_SIZE // 2
+        bin = [[0 for i in range(BOARD_SIZE)] for j in range(BOARD_SIZE)]
+        q = []
+        list = []
+        for i in range(0,BOARD_SIZE) :
+            for j in range(0,BOARD_SIZE) :
+                if self.board[i][j] != EMPTY: 
+                    bin[i][j] = 1
+                    q.append([i,j])
+        if len(q) == 0 :
+            q.append([mid,mid])
+            list.append([mid,mid])
+        head = 0
+        while head < len(q) :
+            x,y = q[head]
+            head += 1
+            for dx,dy in [[1,0], [-1,0], [0,1], [0,-1]] :
+                if within_board(x + dx,y + dy) and bin[x + dx][y + dy] == 0 :
+                    bin[x + dx][y + dy] = 1
+                    list.append([x + dx,y + dy])
+                    q.append([x + dx,y + dy])
+        # print(list)
+        return  list
+
+
+
         list_all = [[] for i in range(BOARD_SIZE)]
         list = []
         for i in range(0,BOARD_SIZE) :
@@ -107,22 +134,43 @@ class Board:
                     tmp += 6
                 self.features[tmp] += val
 
-        for i in range(len(list)) : 
-            color = list[i]
-            if i + 4 < len(list) and list[i] == list[i + 4] and list[i] != EMPTY:
-                cnt = 0
-                empty_count = 0
-                for j in range(i + 1,i + 4) :
-                    if list[j] == color :
-                        cnt += 1
-                    elif list[j] == EMPTY :
-                        empty_count += 1
-                if cnt + empty_count == 3 and empty_count == 1 :
-                    if color == BLACK :
-                        self.features[5] += val
-                    else :
-                        self.features[11] += val
-
+        # for i in range(len(list)) : 
+        #     color = list[i]
+        #     if i + 4 < len(list) and list[i] == list[i + 4] and list[i] != EMPTY:
+        #         cnt = 0
+        #         empty_count = 0
+        #         for j in range(i + 1,i + 4) :
+        #             if list[j] == color :
+        #                 cnt += 1
+        #             elif list[j] == EMPTY :
+        #                 empty_count += 1
+        #         if cnt + empty_count == 3 and empty_count == 1 :
+        #             if color == BLACK :
+        #                 self.features[4] += val
+        #             else :
+        #                 self.features[10] += val
+        
+        # for i in range(len(list)) : 
+        #     color = list[i]
+        #     if i + 3 < len(list) and list[i] == list[i + 3] and list[i] != EMPTY:
+        #         cnt = 0
+        #         empty_count = 0
+        #         for j in range(i + 1,i + 3) :
+        #             if list[j] == color :
+        #                 cnt += 1
+        #             elif list[j] == EMPTY :
+        #                 empty_count += 1
+        #         op = 0
+        #         if i != 0 and list[i - 1] == EMPTY :
+        #             op += 1
+        #         if i + 4 < len(list) and list[i + 4] == EMPTY :
+        #             op += 1
+        #         if cnt == 1 and empty_count == 1 and op:
+        #             if color == BLACK :
+        #                 self.features[3] += val
+        #             else :
+        #                 self.features[9] += val
+    
     def check_features(self, row, col, val) :
         list = []
         for i in range(BOARD_SIZE) :

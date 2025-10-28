@@ -14,27 +14,37 @@ def train_model(X, y) :
     print(f"测试集平均绝对误差: {mae:.2f}")
     print(f"测试集R²分数: {r2:.4f}")
     feature_names = [
-        '0', '1', '2', '3', 
-        '4', '5', '6', '7'
+        '0', '1', '2', '3','4', '5',
+        '6', '7', '8', '9', '10','11'
     ]
     print("\n=== 模型学到的权重分析 ===")
     for i, (name, weight) in enumerate(zip(feature_names, model.coef_)):
-        print(f"{name:8}: {weight:8.2f}")
-    print(f"偏置项: {model.intercept_:.2f}")
+        print(f"{name:8}: {weight:8.1f}")
+    print(f"偏置项: {model.intercept_:.1f}")
     return model
 
 def main() :
-    tot = 4355
+    tot = 6683
     X = []
     y = []
+    list = []
     for i in range(tot) :
-        list = eval(input())
-        # print(list)
-        val = list[-1]
-        list = list[:len(list) - 1]
-        # print(list,val)
-        X.append(list)
-        y.append(val)
+        tmp = eval(input())
+        list.append(tmp)
+    las = 0
+    for i in range(tot) :
+        if i == tot - 1 or list[i][-2] != list[i + 1][-2] :
+            round = i - las + 1
+            base = 5000
+            if round % 2 :
+                base = -base
+            for j in range(las, i + 1) :
+                list[j][12] += base * (list[j][-1] // round)
+                base = -base
+            las = i + 1
+    for i in range(tot) :
+        y.append(list[i][12])
+        X.append(list[i][:12])
     train_model(np.array(X),np.array(y))
 
 if __name__ == "__main__":
