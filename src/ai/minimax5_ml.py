@@ -57,7 +57,7 @@ class ML_MinimaxAI :
 
     def get_move(self, board, color) :
         val, move = self.minimax(2, color, board, -1, -1, -INF, INF)
-        print(move)
+        # print(move)
         return move
 
     def get_start_move(self, board, color) :

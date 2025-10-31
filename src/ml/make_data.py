@@ -13,7 +13,7 @@ from ai.evaluate4 import *
 from ai.random import RandomAI
 from ai.minimax2 import MinimaxAI2
 from ai.minimax1 import MinimaxAI1
-from ai.minimax3_ml import ML_MinimaxAI
+from ai.minimax3_ml import ML_MinimaxAI3
 from ai.minimax4 import MinimaxAI4
 
 def main(test_num) :
@@ -23,7 +23,7 @@ def main(test_num) :
     ai1 = MinimaxAI1()
     ai4 = MinimaxAI4()
     random_ai = RandomAI()
-    ml_ai = ML_MinimaxAI()
+    ml_ai = ML_MinimaxAI3()
     start = 2
     # random.seed(4)
     while game.game_state == PLAYING : 

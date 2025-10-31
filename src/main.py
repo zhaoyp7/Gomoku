@@ -32,11 +32,11 @@ def main() :
             #     pos = ai1.get_move(game.board, BLACK)
             # game.make_move(pos[0], pos[1])
         elif start:
-            pos = ml_ai.get_start_move(game.board, WHITE)
+            pos = ai4.get_start_move(game.board, WHITE)
             game.make_move(pos[0], pos[1])
             start = 0
         else :
-            pos = ml_ai.get_move(game.board, WHITE)
+            pos = ai4.get_move(game.board, WHITE)
             game.make_move(pos[0], pos[1])
 
 if __name__ == "__main__":

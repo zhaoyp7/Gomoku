@@ -65,7 +65,7 @@ class MinimaxAI4 :
             return alpha, move
 
     def get_move(self, board, color) :
-        val, move = self.minimax(3, color, board, -1, -1, -INF, INF)
+        val, move = self.minimax(2, color, board, -1, -1, -INF, INF)
         # print(move)
         return move
 

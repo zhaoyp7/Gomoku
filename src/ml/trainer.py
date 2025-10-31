@@ -36,7 +36,7 @@ def main() :
         if i == tot - 1 or list[i][-2] != list[i + 1][-2] :
             round = i - las + 1
             base = 5000
-            if round % 2 :
+            if round % 2 == 0 :
                 base = -base
             for j in range(las, i + 1) :
                 list[j][12] += base * (list[j][-1] // round)
