@@ -1,10 +1,7 @@
-# 游戏程序主体
-
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-# 游戏程序主体
 import random
 from core.constants import *
 from core.board import Board
@@ -16,6 +13,9 @@ from ai.minimax1 import MinimaxAI1
 from ai.minimax3_ml import ML_MinimaxAI3
 from ai.minimax4 import MinimaxAI4
 
+# Obtain sufficient match data
+# [feature0~11, value, player, test_num, step]
+
 def main(test_num) :
     step = 0
     game = Game()
@@ -25,7 +25,6 @@ def main(test_num) :
     random_ai = RandomAI()
     ml_ai = ML_MinimaxAI3()
     start = 2
-    # random.seed(4)
     while game.game_state == PLAYING : 
         if random.randrange(1,120) == 1 :
             pos = random_ai.get_move(game.board)
@@ -43,6 +42,7 @@ def main(test_num) :
         else :
             pos = ai4.get_move(game.board, WHITE)
             game.make_move(pos[0], pos[1])
+        
         list = []
         for i in range(len(game.board.features)) :
             list.append(int(game.board.features[i]))

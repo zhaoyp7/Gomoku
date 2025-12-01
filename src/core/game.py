@@ -10,20 +10,9 @@ from .constants import *
 
 # 实现以下函数
 # __init__(self) : 初始化
-# MakeMove(self, row, col) : 调用 Board 实现落子，并且判断落子后游戏状态
-# PrintBoard(self) : 输出棋盘
-
-# 目前只要实现简单的输出
-# 之后需要添加可视化的部分
-
-'''
-Game：【游戏操作。】
-· init
-· 函数：判断落子合法性（输入坐标。判断边框内 && 未落子。返回bool。）
-· 函数：落子（输入执棋方与坐标。调用“判断落子合法性”。否则返回invalid信息，重新调用“落子”（但不打印）；
-是则更新所落子的格子状态，“打印棋局”。“判断游戏整局状态（w/l/t/on)”，未结束则调用“改变执棋方”，结束则调用“打印结束信息”。）
-'''
-
+# make_move(self, row, col) : 调用 Board 实现落子，并且判断落子后游戏状态
+# print_board(self) : 输出棋盘
+# print_result(self) : 打印游戏结果
 
 class Game:
 

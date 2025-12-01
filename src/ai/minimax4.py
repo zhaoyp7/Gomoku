@@ -30,9 +30,6 @@ class MinimaxAI4 :
             else : 
                 return 100000000 * (limit_depth + 1), empty_move
         if limit_depth == 0 :
-            # if evaluate(board) == -9030 :
-            #     print("asdfjlkasdf",lastrow,lastcol)
-            #     print(board.features)
             return evaluate(board), empty_move
         list = board.get_valid_pos()
         move = -1, -1
@@ -43,12 +40,6 @@ class MinimaxAI4 :
                val, tmp = self.minimax(limit_depth - 1, 3 - player, new_board, pr, pc, alpha, INF)
             else :
                 val, tmp = self.minimax(limit_depth - 1, 3 - player, new_board, pr, pc, -INF, beta)
-            # if limit_depth == 3 and pr == 1 and pc == 9:
-            #     print(pr,pc,val)
-            # if limit_depth == 2 and pr == 2 and pc == 8:
-            #     print(pr,pc,val)
-            # if lastrow == 4 and lastcol == 3 :
-            #     print("qqqqqqq",pr,pc,val)
             if player == WHITE and val > alpha:
                 alpha = val
                 move = pr, pc

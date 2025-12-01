@@ -1,0 +1,12 @@
+Gomoku/
+├── src/
+│   ├── core/
+│   │   ├── board.py          # 棋盘类
+│   │   ├── game.py           # 游戏逻辑类
+│   │   └── constants.py      # 常量定义
+│   ├── ai/
+│   │   └── minimax_ai.py     # Minimax算法AI
+│   ├── ui/
+│   │   └── pygame_ui.py      # 基于Pygame的界面
+│   └── main.py               # 主程序入口
+└── requirements.txt          # 依赖包

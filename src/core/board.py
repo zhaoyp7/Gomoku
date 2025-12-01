@@ -7,9 +7,16 @@
 # current_player ： 当前玩家
 
 # 实现以下函数
+# within_board(row, col) : 判断 (row, col) 是否在棋盘内
 # __init__(self) : 初始化
-# CheckWin(self) : 检查是否胜利
-# CheckFull(self) : 检查棋盘是否已满
+# check_valid_move(self, row, col) : 检查落子是否有效
+# place_stone(self, row, col) : 落子
+# check_win(self, row, col) : 检查是否胜利
+# check_full(self) : 检查棋盘是否已满
+# get_valid_pos(self) : 获取有效落子位置
+# update_features(self, list, val) : 更新特征值
+# check_features(self, row, col, val) : 检查对特征值可能的更改
+
 import numpy as np
 from .constants import *
 
@@ -75,6 +82,8 @@ class Board:
         return np.all(self.board != EMPTY)
 
     def get_valid_pos(self) :
+        # 获取有效落子位置
+        # 从已经落子的位置往外扩展
         mid = BOARD_SIZE // 2
         bin = [[0 for i in range(BOARD_SIZE)] for j in range(BOARD_SIZE)]
         q = []
@@ -96,27 +105,9 @@ class Board:
                     bin[x + dx][y + dy] = 1
                     list.append([x + dx,y + dy])
                     q.append([x + dx,y + dy])
-        # print(list)
         return  list
-
-
-
-        list_all = [[] for i in range(BOARD_SIZE)]
-        list = []
-        for i in range(0,BOARD_SIZE) :
-            for j in range(0,BOARD_SIZE) :
-                if self.check_valid_move(i, j) : 
-                    mid = BOARD_SIZE // 2
-                    dis = max(abs(i - mid),abs(j - mid))
-                    list_all[dis].append([i,j])
-        for i in range(BOARD_SIZE) :
-            for j in range(len(list_all[i])) :
-                list.append(list_all[i][j])
-        # print(list)
-        return list
     
     def update_features(self, list, val) :
-        # print(list)
         last = 0
         for i in range(len(list)) : 
             if i + 1 == len(list) or list[i + 1] != list[i] :
@@ -133,45 +124,9 @@ class Board:
                 if list[i] == WHITE :
                     tmp += 6
                 self.features[tmp] += val
-
-        # for i in range(len(list)) : 
-        #     color = list[i]
-        #     if i + 4 < len(list) and list[i] == list[i + 4] and list[i] != EMPTY:
-        #         cnt = 0
-        #         empty_count = 0
-        #         for j in range(i + 1,i + 4) :
-        #             if list[j] == color :
-        #                 cnt += 1
-        #             elif list[j] == EMPTY :
-        #                 empty_count += 1
-        #         if cnt + empty_count == 3 and empty_count == 1 :
-        #             if color == BLACK :
-        #                 self.features[4] += val
-        #             else :
-        #                 self.features[10] += val
-        
-        # for i in range(len(list)) : 
-        #     color = list[i]
-        #     if i + 3 < len(list) and list[i] == list[i + 3] and list[i] != EMPTY:
-        #         cnt = 0
-        #         empty_count = 0
-        #         for j in range(i + 1,i + 3) :
-        #             if list[j] == color :
-        #                 cnt += 1
-        #             elif list[j] == EMPTY :
-        #                 empty_count += 1
-        #         op = 0
-        #         if i != 0 and list[i - 1] == EMPTY :
-        #             op += 1
-        #         if i + 4 < len(list) and list[i + 4] == EMPTY :
-        #             op += 1
-        #         if cnt == 1 and empty_count == 1 and op:
-        #             if color == BLACK :
-        #                 self.features[3] += val
-        #             else :
-        #                 self.features[9] += val
     
     def check_features(self, row, col, val) :
+        # 检查四个方向
         list = []
         for i in range(BOARD_SIZE) :
             list.append(self.board[i][col])

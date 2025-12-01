@@ -3,8 +3,10 @@ import copy
 from .evaluate5_ml import *
 from core.board import Board
 from core.constants import *
-# 实现一个基于 Minimax 算法的 AI
 empty_move = [-1, -1]
+
+# 实现一个基于 Minimax 算法的 AI
+# 同时用 ML 模型优化估价函数
 
 def within_board(row, col) :
     return (0 <= row < BOARD_SIZE and 0 <= col < BOARD_SIZE)
@@ -24,13 +26,16 @@ def debug(board) :
 
 class ML_MinimaxAI :
     def minimax(self, limit_depth, player, board, lastrow, lastcol, alpha, beta) : 
+        # 有一方获胜
         if lastrow != -1 and board.check_win(lastrow, lastcol) :
             if player == WHITE :
                 return -100000000 * (limit_depth + 1), empty_move
             else : 
                 return 100000000 * (limit_depth + 1), empty_move
+        # 到达搜索深度上限
         if limit_depth == 0 :
             return evaluate(board), empty_move
+        # 枚举所有可扩展状态
         list = board.get_valid_pos()
         move = -1, -1
         for pr, pc in list :
@@ -46,6 +51,7 @@ class ML_MinimaxAI :
             elif player == BLACK and val < beta :
                 beta = val
                 move = pr, pc
+            # Alpha-Beta 剪枝
             if player == WHITE and alpha >= beta :
                 return alpha, move
             elif player == BLACK and beta <= alpha :
@@ -55,13 +61,17 @@ class ML_MinimaxAI :
         else :
             return alpha, move
 
+    # 获取落子位置
     def get_move(self, board, color) :
         val, move = self.minimax(2, color, board, -1, -1, -INF, INF)
         # print(move)
         return move
 
+    # 第一步特殊处理
     def get_start_move(self, board, color) :
         mid = BOARD_SIZE // 2
+        # 先手优先下中间
+        # 后手优先下中间离黑棋近的位置
         if color == BLACK :
             if board.board[mid][mid] == EMPTY :
                 move = [mid, mid]

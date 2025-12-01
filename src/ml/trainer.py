@@ -4,6 +4,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, r2_score
 import random
 
+# Train an ML model for linear regression
+
 def train_model(X, y) :
     model = LinearRegression()
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)

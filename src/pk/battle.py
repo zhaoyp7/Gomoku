@@ -1,10 +1,7 @@
-# 游戏程序主体
-
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-# 游戏程序主体
 import random
 from core.constants import *
 from core.board import Board
@@ -20,6 +17,7 @@ win = 0
 draw = 0
 lose = 0
 
+# Automatically conduct 50 AI battles against each other
 
 def main() :
     global win,draw,lose
@@ -35,7 +33,7 @@ def main() :
     while game.game_state == PLAYING : 
         step += 1
         if game.board.current_player == BLACK :
-            if start :
+            if start : # Randomly take the first step
                 pos = random_ai.get_move(game.board)
             else :
                 pos = ai5.get_move(game.board, BLACK)
@@ -56,7 +54,6 @@ def main() :
             elif game.game_state == DRAW :
                 print("DRAW , use step = ",step)
                 draw += 1
-        # print(step)
 
 if __name__ == "__main__":
     for i in range(50) :
