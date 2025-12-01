@@ -1,4 +1,5 @@
 # 游戏程序主体
+
 import random
 from core.constants import *
 from core.board import Board
@@ -18,6 +19,7 @@ def main() :
     random_ai = RandomAI()
     ml_ai = ML_MinimaxAI()
     start = 2
+    # 请自行选择你的AI对手
     while game.game_state == PLAYING : 
         if game.board.current_player == BLACK :
             print("请输入落子位置")
@@ -26,11 +28,6 @@ def main() :
                 print("落子无效，请重新输入：")
                 row, col = map(int,input().split())
             game.make_move(row, col)
-            # if start :
-            #     pos = random_ai.get_move(game.board)
-            # else :
-            #     pos = ai1.get_move(game.board, BLACK)
-            # game.make_move(pos[0], pos[1])
         elif start:
             pos = ai4.get_start_move(game.board, WHITE)
             game.make_move(pos[0], pos[1])
