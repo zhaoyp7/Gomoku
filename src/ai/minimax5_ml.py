@@ -1,5 +1,4 @@
 import random
-import copy
 from .evaluate5_ml import *
 from core.board import Board
 from core.constants import *
@@ -39,12 +38,12 @@ class ML_MinimaxAI :
         list = board.get_valid_pos()
         move = -1, -1
         for pr, pc in list :
-            new_board = copy.deepcopy(board)
-            new_board.place_stone(pr, pc)
+            board.place_stone(pr, pc)
             if player == WHITE :
-               val, tmp = self.minimax(limit_depth - 1, 3 - player, new_board, pr, pc, alpha, INF)
+               val, tmp = self.minimax(limit_depth - 1, 3 - player, board, pr, pc, alpha, INF)
             else :
-                val, tmp = self.minimax(limit_depth - 1, 3 - player, new_board, pr, pc, -INF, beta)
+                val, tmp = self.minimax(limit_depth - 1, 3 - player, board, pr, pc, -INF, beta)
+            board.remove_stone(pr, pc)
             if player == WHITE and val > alpha:
                 alpha = val
                 move = pr, pc

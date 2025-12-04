@@ -47,6 +47,13 @@ class Board:
         self.check_features(row, col, 1)
         self.current_player = WHITE if self.current_player == BLACK else BLACK
 
+    def remove_stone(self, row, col):
+        """撤销落子操作"""
+        self.check_features(row, col, -1)
+        self.board[row][col] = EMPTY
+        self.check_features(row, col, 1)
+        self.current_player = WHITE if self.current_player == BLACK else BLACK
+
     def check_win(self, row, col):
         """检查新落子是否获胜"""
         player = self.board[row][col]

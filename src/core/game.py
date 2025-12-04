@@ -34,7 +34,7 @@ class Game:
             for col in range(BOARD_SIZE):
                 print(symbols[self.board.board[row][col]], end=" ")
             print()
-        # print("features",self.board.features)
+        print("features",self.board.features)
 
     def print_result(self):
         """打印游戏结果"""
@@ -53,9 +53,9 @@ class Game:
     def make_move(self, row, col):
         """落子。"""
         self.board.place_stone(row, col)
-        # self.print_board()
+        self.print_board()
         if self.board.check_win(row, col) : 
             self.game_state = self.board.game_state
         elif self.board.check_full() :
             self.game_state = DRAW
-        # self.print_result()
+        self.print_result()
