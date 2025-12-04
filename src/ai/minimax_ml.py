@@ -78,7 +78,7 @@ class ML_MinimaxAI :
 
     # 获取落子位置
     def get_move(self, board, color) :
-        val, move = self.minimax(3, color, board, -1, -1, -INF, INF)
+        val, move = self.minimax(2, color, board, -1, -1, -INF, INF)
         # print(move)
         return move
 
