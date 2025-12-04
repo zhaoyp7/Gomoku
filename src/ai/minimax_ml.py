@@ -2,6 +2,8 @@ import random
 from .evaluate5_ml import *
 from core.board import Board
 from core.constants import *
+from operator import itemgetter
+
 empty_move = [-1, -1]
 
 # 实现一个基于 Minimax 算法的 AI
@@ -23,7 +25,7 @@ def debug(board) :
             print(symbols[board.board[row][col]], end=" ")
         print()
 
-class ML_MinimaxAI5 :
+class ML_MinimaxAI :
     def minimax(self, limit_depth, player, board, lastrow, lastcol, alpha, beta) : 
         # 有一方获胜
         if lastrow != -1 and board.check_win(lastrow, lastcol) :
@@ -36,6 +38,17 @@ class ML_MinimaxAI5 :
             return evaluate(board), empty_move
         # 枚举所有可扩展状态
         list = board.get_valid_pos()
+
+        # pos_val_list = []
+        # for pr, pc in list :
+        #     board.place_stone(pr, pc)
+        #     val = evaluate(board)
+        #     board.remove_stone(pr, pc)
+        #     pos_val_list.append((pr, pc, val))
+        # list = pos_val_list
+        #list = sorted(pos_val_list, key=itemgetter(2), reverse=True)
+        # print("sort")
+
         move = -1, -1
         for pr, pc in list :
             board.place_stone(pr, pc)
