@@ -38,31 +38,34 @@ class ML_MinimaxAI :
             return evaluate(board), empty_move
         # 枚举所有可扩展状态
         list = board.get_valid_pos()
-
-        # pos_val_list = []
-        # for pr, pc in list :
-        #     board.place_stone(pr, pc)
-        #     val = evaluate(board)
-        #     board.remove_stone(pr, pc)
-        #     pos_val_list.append((pr, pc, val))
-        # list = pos_val_list
-        #list = sorted(pos_val_list, key=itemgetter(2), reverse=True)
-        # print("sort")
-
-        move = -1, -1
+        """
+        pos_val_list = []
         for pr, pc in list :
             board.place_stone(pr, pc)
+            val = evaluate(board)
+            board.remove_stone(pr, pc)
+            pos_val_list.append((pr, pc, val))
+        list = pos_val_list
+        list = sorted(pos_val_list, key=itemgetter(2), reverse=True)
+        """
+        move = -1, -1
+        nxt_val = -INF if player == WHITE else INF
+        for pr, pc in list :
+            board.place_stone(pr, pc)
+            new_val = evaluate(board)
             if player == WHITE :
                val, tmp = self.minimax(limit_depth - 1, 3 - player, board, pr, pc, alpha, INF)
             else :
                 val, tmp = self.minimax(limit_depth - 1, 3 - player, board, pr, pc, -INF, beta)
             board.remove_stone(pr, pc)
-            if player == WHITE and val > alpha:
+            if player == WHITE and (val > alpha or val == alpha and new_val > nxt_val):
                 alpha = val
                 move = pr, pc
-            elif player == BLACK and val < beta :
+                nxt_val = new_val
+            elif player == BLACK and (val < beta or val == beta and new_val < nxt_val):
                 beta = val
                 move = pr, pc
+                nxt_val = new_val
             # Alpha-Beta 剪枝
             if player == WHITE and alpha >= beta :
                 return alpha, move
@@ -75,7 +78,7 @@ class ML_MinimaxAI :
 
     # 获取落子位置
     def get_move(self, board, color) :
-        val, move = self.minimax(2, color, board, -1, -1, -INF, INF)
+        val, move = self.minimax(3, color, board, -1, -1, -INF, INF)
         # print(move)
         return move
 
