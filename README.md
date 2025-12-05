@@ -13,6 +13,13 @@
 Gomoku/
 ├── README.md
 ├── requirements.txt
+├── doc
+│   ├── data
+│   │   ├── dataset                   # 训练数据集
+│   │   └── train_result              # 训练结果
+│   └── pk
+│       ├── final_results             # 文件夹，存放最强两个AI的对战结果
+│       └── results                   # 文件夹，存放所有五个AI的对战结果
 └── src
     ├── ai
     │   ├── evaluate1.py
@@ -31,17 +38,12 @@ Gomoku/
     │   ├── board.py                  # 实现棋盘的基本操作
     │   ├── constants.py              # 一些常量定义
     │   └── game.py                   # 实现游戏的基本逻辑判断
-    ├── data
-    │   ├── dataset                   # 训练数据集
-    │   └── train_result              # 训练结果
     ├── main.py
     ├── ml
     │   ├── make_data.py              # 生成训练数据
     │   └── trainer.py                # 训练ML模型
     └── pk
-        ├── battle.py
-        ├── final_results             # 文件夹，存放最强两个AI的对战结果
-        └── results                   # 文件夹，存放所有五个AI的对战结果
+        └── battle.py
 ```
 ## 使用说明
 直接运行 src 文件夹中 main.py 即可.
