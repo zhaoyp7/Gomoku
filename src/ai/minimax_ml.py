@@ -54,9 +54,9 @@ class ML_MinimaxAI :
             board.place_stone(pr, pc)
             new_val = evaluate(board)
             if player == WHITE :
-               val, tmp = self.minimax(limit_depth - 1, 3 - player, board, pr, pc, alpha, INF)
+               val, tmp = self.minimax(limit_depth - 1, 3 - player, board, pr, pc, alpha, beta)
             else :
-                val, tmp = self.minimax(limit_depth - 1, 3 - player, board, pr, pc, -INF, beta)
+                val, tmp = self.minimax(limit_depth - 1, 3 - player, board, pr, pc, alpha, beta)
             board.remove_stone(pr, pc)
             if player == WHITE and (val > alpha or val == alpha and new_val > nxt_val):
                 alpha = val
