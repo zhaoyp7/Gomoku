@@ -42,7 +42,6 @@ def main() :
                 base = -base
             for j in range(las, i + 1) :
                 list[j][12] += base * (list[j][-1] // round)
-                base = -base
             las = i + 1
     for i in range(tot) :
         y.append(list[i][12])
